@@ -1,0 +1,23 @@
+.wrapper {
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  width: 39%;
+}
+
+table {
+  margin: 0% 10%;
+  text-align: center;
+}
+
+img {
+  height: 80px;
+  width: 80px;
+}
+
+.magacin {
+  height: 100%;
+  width: 50%;
+  margin-right: 1%;
+  float: right;
+}

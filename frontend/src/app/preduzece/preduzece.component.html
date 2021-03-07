@@ -1,0 +1,54 @@
+<app-header></app-header>
+
+<div class="main">
+  <hr />
+  <ngb-alert *ngIf="poruka != -1" [type]="ALERTS[poruka].tip" (close)="zatvoriAlert()" style="margin-top: 1%;">{{ALERTS[poruka].poruka}}
+  </ngb-alert>
+
+  <h2 style="text-align: center;">Narudzbine</h2>
+
+  <nav>
+    <a [routerLink]="prikaziSveProizvode()">Svi proizvodi</a> |
+    <a routerLink="/dodavanje-proizvoda">Dodaj proizvod</a> |
+    <a routerLink="/grafik-poslovanja">Grafik poslovanja</a>
+  </nav>
+  <hr />
+
+  <div *ngIf="!ucitano" class="spinner-border text-secondary" role="status"></div>
+
+  <div *ngIf="ucitano && (!narudzbine || narudzbine.length == 0)">
+    <span style="color: blue;">Trenutno nema narudzbina.</span>
+  </div>
+
+  <div *ngIf="ucitano && narudzbine && narudzbine.length > 0">
+    <button class="btn btn-primary" (click)="sortirajPoDatumu()" style="margin-bottom: 1%;">Sortiraj po datumu</button>
+
+    <table class="table table-striped">
+      <tr>
+        <th>Narucilac</th>
+        <th>Naziv proizvoda</th>
+        <th>Kolicina</th>
+        <th>Datum</th>
+        <th>Na stanju</th>
+        <th>Akcija</th>
+      </tr>
+      <tr *ngFor="let narudzbina of narudzbine; let index = index;"
+        [style]="narudzbina.status == 2 ? 'color: red;' : 'color: black;'">
+        <td>{{narudzbina.narucilac}}</td>
+        <td>{{narudzbina.proizvod.naziv}}</td>
+        <td>{{narudzbina.kolicina}}</td>
+        <td>{{prikaziDatum(narudzbina.datum)}}</td>
+        <td>{{narudzbina.proizvod.kolicina}}</td>
+        <td>
+          <button *ngIf="narudzbina.status == 0" class="btn btn-secondary"
+            (click)="prihvatiNarudzbinu(narudzbina, index)">Prihvati</button>&nbsp;
+          <button *ngIf="narudzbina.status == 0" class="btn btn-secondary"
+            (click)="odbijNarudzbinu(narudzbina, index)">Odbij</button>
+          <span *ngIf="narudzbina.status == 2" style="color: red;">NA CEKANJU</span>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<app-footer></app-footer>

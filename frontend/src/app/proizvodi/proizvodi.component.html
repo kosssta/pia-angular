@@ -1,0 +1,77 @@
+<app-header [nazad]="3"></app-header>
+
+<h1 style="text-align: center; margin-top: 1%;">Svi proizvodi</h1>
+
+<ngb-alert *ngIf="poruka != ''" type="danger" (close)="zatvoriAlert()" style="margin-top: 1%;">{{poruka}}</ngb-alert>
+
+<div style="float: left;">
+  <h2 style="text-align: center;">Sadnice</h2>
+
+  <div *ngIf="!ucitaneSadnice" class="spinner-border text-secondary" role="status"></div>
+
+  <div *ngIf="ucitaneSadnice && (!sadnice || sadnice.length == 0)" style="text-align: center;">
+    <span style="color: blue;">Nemate nijednu sadnicu.</span>
+  </div>
+
+  <table class="table table-striped" *ngIf="ucitaneSadnice && sadnice && sadnice.length > 0">
+    <tr>
+      <th>Naziv</th>
+      <th>Kolicina</th>
+      <th>Zivotni vek</th>
+      <th>Cena</th>
+      <th>Ocena</th>
+      <th>Detalji</th>
+      <th>Povuci</th>
+    </tr>
+    <tr *ngFor="let sadnica of sadnice; let index = index;">
+      <td>{{sadnica.naziv}}</td>
+      <td>{{sadnica.kolicina}}</td>
+      <td>{{sadnica.trajanjeSazrevanja}}</td>
+      <td>{{sadnica.cena}}</td>
+      <td>{{sadnica.ocena ? sadnica.ocena : 'Nema'}}</td>
+      <td>
+        <button class="btn btn-secondary" (click)="prikaziDetalje(sadnica.idPro)">Prikazi detalje</button>
+      </td>
+      <td>
+        <button class="btn btn-secondary" (click)="povuciProizvod(sadnica.idPro, index, 'sadnica')">Povuci proizvod</button>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div [style]="preparati && preparati.length > 0 ? 'float: right;' : ''">
+  <h2 style="text-align: center;">Preparati</h2>
+
+  <div *ngIf="!ucitaniPreparati" class="spinner-border text-secondary" role="status"></div>
+
+  <div *ngIf="ucitaniPreparati && (!preparati || preparati.length == 0)" style="text-align: center;">
+    <span style="color: blue;">Nemate nijedan preparat.</span>
+  </div>
+
+  <table class="table table-striped" *ngIf="ucitaniPreparati && preparati && preparati.length > 0">
+    <tr>
+      <th>Naziv</th>
+      <th>Kolicina</th>
+      <th>Ubrzanje rasta</th>
+      <th>Cena</th>
+      <th>Ocena</th>
+      <th>Detalji</th>
+      <th>Povuci</th>
+    </tr>
+    <tr *ngFor="let preparat of preparati; let index = index;">
+      <td>{{preparat.naziv}}</td>
+      <td>{{preparat.kolicina}}</td>
+      <td>{{preparat.ubrzanje}}</td>
+      <td>{{preparat.cena}}</td>
+      <td>{{preparat.ocena ? preparat.ocena : 'Nema'}}</td>
+      <td>
+        <button class="btn btn-secondary" (click)="prikaziDetalje(preparat.idPro)">Prikazi detalje</button>
+      </td>
+      <td>
+        <button class="btn btn-secondary" (click)="povuciProizvod(preparat.idPro, index, 'preparat')">Povuci proizvod</button>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<app-footer></app-footer>

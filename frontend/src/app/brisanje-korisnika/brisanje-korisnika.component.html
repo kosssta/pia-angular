@@ -1,0 +1,47 @@
+<div class="main">
+  <h2>Brisanje korisnika</h2>
+  <ngb-alert type="danger" (click)="zatvoriPoruku()" *ngIf="message != ''" style="margin-top: 1%;">{{message}}</ngb-alert>
+
+  <form style="display: inline-block;">
+    <table>
+      <tr>
+        <td>Tip:</td>
+        <td>
+          <select name="tip" [(ngModel)]="tip" (change)="promenaTipa()" class="form-control">
+            <option>Poljoprivrednik</option>
+            <option>Preduzece</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span *ngIf="tip == 'Preduzece'">Skracen naziv:</span>
+          <span *ngIf="tip != 'Preduzece'">Korisnicko ime:</span>
+        </td>
+        <td>
+          <input type="text" name="username" [(ngModel)]="username" class="form-control" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button class="btn btn-primary" (click)="pretrazi()">
+            <span *ngIf="!pressedButton1">Pronadji korisnika</span>
+            <span *ngIf="pressedButton1" class="spinner-border spinner-border-sm" role="status"
+              aria-hidden="true"></span>
+          </button>
+        </td>
+      </tr>
+    </table>
+  </form>
+  <hr />
+  <div *ngIf="zahtevZaBrisanje" style="display: inline-block;">
+    <span (click)="prikaziDetalje()">Obrisati {{zahtevZaBrisanje.username}}? </span>
+    <button class="btn btn-primary" (click)="obrisi()">
+      <span *ngIf="!pressedButton2">Obrisi</span>
+      <span *ngIf="pressedButton2" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div *ngIf="zahtevDetalji">
+    <app-korisnik-detalji [zahtev]="zahtevDetalji"></app-korisnik-detalji>
+  </div>
+</div>

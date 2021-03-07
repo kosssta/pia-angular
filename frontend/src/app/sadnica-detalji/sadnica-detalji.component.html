@@ -1,0 +1,86 @@
+<table class="main">
+  <div *ngIf="sadnica" style="display: inline-block;">
+    <tr>
+      <td>
+        <div syle="display: inline-block;">
+          <ngb-progressbar [showValue]="true" type="info" [value]="procenatNapretka()">
+          </ngb-progressbar>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Naziv:</td>
+      <td>{{sadnica.naziv}}</td>
+    </tr>
+    <tr>
+      <td>Proizvodjac:</td>
+      <td>{{sadnica['username']}}</td>
+    </tr>
+  </div>
+  <tr>
+    <td>
+      <div *ngIf="!sadnica && (!sadniceUmagacinu || sadniceUmagacinu.length == 0)" class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Zasadi sadnicu</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem>Nemate vise sadnica u magacinu</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!sadnica && sadniceUmagacinu && sadniceUmagacinu.length > 0" class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Zasadi sadnicu</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem *ngFor="let sadnica of sadniceUmagacinu"
+                (click)="zasadi(sadnica)">{{sadnica.naziv}} ({{sadnica['username']}})</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="sadnica && sadnica.izvadjena" class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Sutra mozete zasaditi
+              sadnicu</button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        *ngIf="sadnica && !sadnica.izvadjena && sadnica.starost < sadnica.trajanjeSazrevanja && (!preparatiUmagacinu || preparatiUmagacinu.length == 0)"
+        class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Dodaj preparat</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem>Nemate vise preparata u magacinu</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        *ngIf="sadnica && !sadnica.izvadjena && sadnica.starost < sadnica.trajanjeSazrevanja && preparatiUmagacinu && preparatiUmagacinu.length > 0"
+        class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Dodaj preparat</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem *ngFor="let preparat of preparatiUmagacinu"
+                (click)="dodajPreparat(preparat)">{{preparat.naziv}} ({{preparat['username']}})</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button *ngIf="sadnica && !sadnica.izvadjena && sadnica.starost == sadnica.trajanjeSazrevanja"
+        class="btn btn-secondary" (click)="izvadi(sadnica)">Izvadi sadnicu</button>
+    </td>
+  </tr>
+</table>
+<span style="color: red;">{{poruka}}</span>

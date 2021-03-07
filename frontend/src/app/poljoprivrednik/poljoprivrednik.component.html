@@ -1,0 +1,75 @@
+<app-header></app-header>
+
+<div class="main">
+  <h2 style="text-align: center;">Svi rasadnici</h2>
+
+  <div *ngIf="!ucitano" class="spinner-border text-primary" role="status"></div>
+
+  <div *ngIf="ucitano && (!rasadnici || rasadnici.length == 0)"><span style="color: blue;">Nemate nijedan rasadnik</span></div>
+
+  <table *ngIf="ucitano && rasadnici && rasadnici.length > 0" class="table table-stripped">
+    <tr>
+      <th>Rb</th>
+      <th>Naziv</th>
+      <th>Mesto</th>
+      <th>Broj zasadjenih sadnica</th>
+      <th>Broj slobodnih mesta</th>
+      <th>Kolicina vode</th>
+      <th>Temperatura</th>
+    </tr>
+    <tr *ngFor="let rasadnik of rasadnici; let index = index;" (click)="prikaziRasadnik(rasadnik.idRas)">
+      <td>{{index + 1}}</td>
+      <td>{{rasadnik.naziv}}</td>
+      <td>{{rasadnik.mesto}}</td>
+      <td>{{rasadnik.brojZasadjenihSadnica}}</td>
+      <td>{{rasadnik.duzina * rasadnik.sirina - rasadnik.brojZasadjenihSadnica}}</td>
+      <td>{{rasadnik.voda}} l</td>
+      <td>{{rasadnik.temperatura}} °C</td>
+    </tr>
+  </table>
+
+  <hr />
+
+  <h2>Dodavanje rasadnika</h2>
+
+  <ngb-alert style="margin-top: 1%;" *ngIf="message != ''" type="danger" (close)="closeAlert()">{{ message }}
+  </ngb-alert>
+
+  <form style="display: inline-block;">
+    <table>
+      <tr>
+        <td>Naziv:</td>
+        <td>
+          <input type="text" name="naziv" [(ngModel)]="rasadnikDodavanje.naziv" />
+        </td>
+      </tr>
+      <tr>
+        <td>Mesto:</td>
+        <td>
+          <input type="text" name="mesto" [(ngModel)]="rasadnikDodavanje.mesto" />
+        </td>
+      </tr>
+      <tr>
+        <td>Duzina (metara):</td>
+        <td>
+          <input type="text" name="duzina" [(ngModel)]="duzina" />
+        </td>
+      </tr>
+      <tr>
+        <td>Sirina (metara):</td>
+        <td>
+          <input type="text" name="sirina" [(ngModel)]="sirina" />
+        </td>
+      </tr>
+    </table>
+    <button class="btn btn-primary" style="margin-top: 1%;" (click)="dodajRasadnik()">
+      <span *ngIf="!pressedButton">Dodaj</span>
+      <span *ngIf="pressedButton" class="spinner-border spinner-border-sm" role="status"
+        aria-hidden="true"></span>
+    </button>
+  </form>
+</div>
+
+<app-odrzavanje></app-odrzavanje>
+
+<app-footer></app-footer>

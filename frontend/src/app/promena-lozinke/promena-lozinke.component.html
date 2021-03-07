@@ -1,0 +1,44 @@
+<app-header></app-header>
+
+<div class="main">
+  <h2>Promena lozinke</h2>
+
+  <ngb-alert type="danger" (click)="zatvoriAlert()" *ngIf="message != ''" style="margin-top: 1%;">{{message}}</ngb-alert>
+
+  <form style="display: inline-block;">
+    <table>
+      <tr>
+        <td>Stara lozinka:</td>
+        <td>
+          <input type="password" name="staraLozinka" [(ngModel)]="staraLozinka" class="form-control" />
+        </td>
+      </tr>
+      <tr>
+        <td>Nova lozinka:</td>
+        <td>
+          <input type="password" name="novaLozinka" [(ngModel)]="novaLozinka" class="form-control" />
+        </td>
+      </tr>
+      <tr>
+        <td>Potvrda lozinke:</td>
+        <td>
+          <input type="password" name="potvrdaLozinke" [(ngModel)]="potvrda" class="form-control" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button class="btn btn-primary" (click)="promena()">
+            <span *ngIf="!pressedButton">Promena</span>
+            <span *ngIf="pressedButton" class="spinner-border spinner-border-sm" role="status"
+              aria-hidden="true"></span>
+          </button>
+        </td>
+      </tr>
+    </table>
+  </form>
+
+</div>
+
+<app-odrzavanje></app-odrzavanje>
+
+<app-footer></app-footer>

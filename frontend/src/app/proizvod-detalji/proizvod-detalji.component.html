@@ -1,0 +1,75 @@
+<app-header [nazad]="2"></app-header>
+
+<div *ngIf="!ucitano" class="spinner-border text-secondary" role="status"></div>
+
+<div *ngIf="ucitano">
+  <ngb-alert style="margin-top: 1%;" *ngIf="poruka != -1" [type]="ALERTS[poruka].tip" (close)="closeAlert()">{{ ALERTS[poruka].poruka }}
+  </ngb-alert>
+
+  <table style="margin-top: 2%;">
+    <tr>
+      <td>
+        <img src="../../assets/images/cvet.jpg" style="height: 37%; width: 40%;" />
+      </td>
+      <td>
+        <h2 style="margin-top: 2%;">{{proizvod.naziv}}</h2>
+        <table>
+          <tr>
+            <td>Proizvodjac:</td>
+            <td>{{proizvod.proizvodjac}}</td>
+          </tr>
+          <tr>
+            <td>Cena:</td>
+            <td>{{proizvod.cena}}</td>
+          </tr>
+          <tr>
+            <td>Kolicina:</td>
+            <td>{{proizvod.kolicina}}</td>
+          </tr>
+          <tr>
+            <td>Na stanju:</td>
+            <td>{{proizvod.kolicina > 0 ? "Ima" : "Nema"}}</td>
+          </tr>
+          <tr>
+            <td>Prosecna ocena:</td>
+            <td>
+              <div *ngIf="!proizvod.ocena">Nema ocena</div>
+
+              <div *ngIf="proizvod.ocena">
+                <ngb-rating [(rate)]="proizvod.ocena" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <button *ngIf="isPoljoprivrednik" class="btn btn-outline-primary mb-2 mr-2" style="margin-left: 4%; margin-top: 2%;"
+          (click)="otvoriProzor(content)">Naruci</button>
+      </td>
+    </tr>
+  </table>
+  <hr />
+
+  <app-komentari [idPro]="proizvod.idPro"></app-komentari>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Poruci proizvod</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Kolicina: <input type="number" [(ngModel)]="kolicina" />
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="naruci()">Naruci</button>
+    </div>
+  </ng-template>
+
+  <ng-template #t let-fill="fill">
+    <span class="star" [class.full]="fill === 100">
+      <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
+    </span>
+  </ng-template>
+
+  <app-odrzavanje></app-odrzavanje>

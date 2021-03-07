@@ -1,0 +1,36 @@
+<app-header></app-header>
+
+<div class="main">
+  <ngb-alert type="danger" (click)="zatvoriPoruku()" *ngIf="message != ''">{{message}}</ngb-alert>
+  <form style="display: inline-block;">
+    <table>
+      <tr>
+        <td>Tip:</td>
+        <td>
+          <select name="tip" [(ngModel)]="tip" (change)="promenaTipa()" class="form-control">
+            <option *ngFor="let tip of TIPOVI">{{tip}}</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>{{identifikator}}:</td>
+        <td>
+          <input type="text" name="ime" [(ngModel)]="username" class="form-control" />
+        </td>
+      </tr>
+      <tr>
+        <td>Lozinka:</td>
+        <td>
+          <input matInput type="password" name="lozinka" [(ngModel)]="password" class="form-control" />
+        </td>
+      </tr>
+    </table>
+    <button class="btn btn-primary" style="margin-top: 1%;;" (click)="login()">
+      <span *ngIf="!pressedButton">Login</span>
+      <span *ngIf="pressedButton" class="spinner-border spinner-border-sm" role="status"
+        aria-hidden="true"></span>
+    </button>
+  </form>
+</div>
+
+<app-footer></app-footer>

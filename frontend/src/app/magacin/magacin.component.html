@@ -1,0 +1,86 @@
+<h2 style="text-align: center;">Magacin</h2>
+
+<div style="align-items: center;">
+  <table>
+    <tr>
+      <td> <h2>Sadnice</h2> </td>
+      <td> <h2>Preparati</h2> </td>
+      <td><h2>Naruceni proizvodi</h2> </td>
+    </tr>
+    <tr>
+      <td>
+        <div>
+          <div *ngIf="!ucitaneSadnice" class="spinner-border text-secondary" role="status"></div>
+
+          <div *ngIf="ucitaneSadnice && (!sadnice || sadnice.length == 0)">
+            <span style="color: blue;">Nemate nijednu sadnicu.</span>
+          </div>
+
+          <table *ngIf="ucitaneSadnice && sadnice && sadnice.length > 0" class="table table-striped">
+            <tr>
+              <th>Naziv</th>
+              <th>Proizvodjac</th>
+              <th>Kolicina</th>
+            </tr>
+            <tr *ngFor="let sadnica of sadnice">
+              <td>{{sadnica.naziv}}</td>
+              <td>{{sadnica['username']}}</td>
+              <td>{{sadnica.kolicina}}</td>
+            </tr>
+          </table>
+        </div>
+      </td>
+      <td>
+        <div>
+          <div *ngIf="!ucitaniPreparati" class="spinner-border text-secondary" role="status"></div>
+
+          <div *ngIf="ucitaniPreparati && (!preparati || preparati.length == 0)">
+            <span style="color: blue;">Nemate nijedan preparat.</span>
+          </div>
+
+          <table *ngIf="ucitaniPreparati && preparati && preparati.length > 0" class="table table-striped">
+            <tr>
+              <th>Naziv</th>
+              <th>Proizvodjac</th>
+              <th>Kolicina</th>
+            </tr>
+            <tr *ngFor="let preparat of preparati">
+              <td>{{preparat.naziv}}</td>
+              <td>{{preparat['username']}}</td>
+              <td>{{preparat.kolicina}}</td>
+            </tr>
+          </table>
+        </div>
+      </td>
+      <td>
+        <div>
+          <div *ngIf="!ucitaniNaruceniProizvodi" class="spinner-border text-secondary" role="status"></div>
+
+          <div *ngIf="ucitaniNaruceniProizvodi && (!naruceniProizvodi || naruceniProizvodi.length == 0)">
+            <span>Nemate nijedan narucen proizvod.</span>
+          </div>
+
+          <table *ngIf="ucitaniNaruceniProizvodi && naruceniProizvodi && naruceniProizvodi.length > 0" class="table table-stripped">
+            <tr>
+              <th>Naziv</th>
+              <th>Proizvodjac</th>
+              <th>Kolicina</th>
+            </tr>
+            <tr *ngFor="let nar of naruceniProizvodi">
+              <td>{{nar.proizvod.naziv}}</td>
+              <td>{{nar.proizvod.proizvodjac}}</td>
+              <td>{{nar.kolicina}}</td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    <tr>&nbsp;</tr>
+    <tr>
+      <td colspan="3">
+        <div>
+          <button class="btn btn-primary" (click)="poruciProizvode()">Poruci nove proizvode</button>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>

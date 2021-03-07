@@ -1,0 +1,123 @@
+<app-header [nazad]="3"></app-header>
+
+<h2>Dodavanje proizvoda</h2>
+
+<ngb-alert *ngIf="poruka != -1" [type]="ALERTS[poruka].tip" (close)="zatvoriAlert()">{{ALERTS[poruka].poruka}}
+</ngb-alert>
+
+<mat-vertical-stepper linear="true" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Unesite naziv i izaberite tip proizvoda:</ng-template>
+
+      <table>
+        <tr>
+          <td>Naziv:</td>
+          <td>
+            <input type="text" name="naziv" formControlName="NazivCtrl" required />
+          </td>
+        </tr>
+        <tr>
+          <td>Tip:</td>
+          <td>
+            <select name="tip" formControlName="TipCtrl" required (change)="dodeliTip()">
+              <option>Sadnica</option>
+              <option>Preparat</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <button class="btn btn-light" matStepperNext>Dalje</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <!--<ng-template *ngIf="tip == 'Sadnica'" matStepLabel>Unesite detalje sadnice:</ng-template>
+      <ng-template *ngIf="tip == 'Preparat' matStepLabel">Unesite detalje preparata:</ng-template>
+      <ng-template *ngIf="tip != 'Sadnica' && tip != 'Preparat'" matStepLabel>Unesite detalje:</ng-template>-->
+      <ng-template matStepLabel>Unesite detalje:</ng-template>
+
+      <table>
+        <tr *ngIf="tip == 'Sadnica'">
+          <td>Trajanje sazrevanja:</td>
+          <td>
+            <input type="number" name="trajanjeSazrevanja" formControlName="PopunjenaCtrl" required />
+          </td>
+        </tr>
+        <tr *ngIf="tip == 'Preparat'">
+          <td>Ubrzanje:</td>
+          <td>
+            <input type="number" name="ubrzanje" formControlName="PopunjenaCtrl" required />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <button class="btn btn-light" matStepperPrevious>Nazad</button>
+          </td>
+          <td>
+            <button class="btn btn-light" matStepperNext>Dalje</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="thirdFormGroup">
+    <form [formGroup]="thirdFormGroup">
+      <ng-template matStepLabel>Unesite cenu i kolicinu:</ng-template>
+      <table>
+        <tr>
+          <td>Cena:</td>
+          <td>
+            <input type="number" name="cena" formControlName="CenaCtrl" required />
+          </td>
+        </tr>
+        <tr>
+          <td>Kolicina:</td>
+          <td>
+            <input type="number" name="kolicina" formControlName="KolicinaCtrl" required />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <button class="btn btn-light" matStepperPrevious>Nazad</button>
+          </td>
+          <td>
+            <button class="btn btn-light" matStepperNext>Dalje</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="fourthFormGroup">
+    <form [formGroup]="fourthFormGroup">
+      <ng-template matStepLabel>Ogranicenja (samo za sadnice):</ng-template>
+
+      <div *ngIf="tip == 'Sadnica'">
+        Izaberite sadnice pored kojih ova ne sme da stoji u rasadniku (ako postoje takve sadnice):
+        <br /><br />
+
+        <select multiple maxlength="sveSadnicePreduzeca.length" formControlName="OgranicenjaCtrl">
+          <option *ngFor="let sadnica of sveSadnicePreduzeca">{{sadnica.naziv}} ({{sadnica['username']}})</option>
+        </select>
+      </div>
+
+      <div *ngIf="tip != 'Sadnica'">
+        <br />
+        Pritisnite zavrsi za kraj unosa
+      </div>
+
+      <br />
+      <button class="btn btn-light" matStepperPrevious>Nazad</button>&nbsp;
+      <button class="btn btn-light" (click)="dodajProizvod()">Zavrsi</button>
+    </form>
+  </mat-step>
+</mat-vertical-stepper>
+
+<app-footer></app-footer>

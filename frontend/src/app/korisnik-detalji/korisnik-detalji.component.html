@@ -1,0 +1,9 @@
+<div *ngIf="zahtev">
+  <table *ngIf="korisnik">
+    <tr *ngFor="let polje of POLJA[zahtev.tip]">
+      <td>{{polje}}</td>
+      <td *ngIf="korisnik">{{korisnik[POLJA_BAZA[polje]]}}</td>
+    </tr>
+  </table>
+  <span *ngIf="!korisnik">{{message}}</span>
+</div>

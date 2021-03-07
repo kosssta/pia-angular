@@ -1,0 +1,11 @@
+<div *ngIf="rasadnici && rasadnici.length > 0" class="wrapper">
+  <table border="1">
+    <tr>
+      <td>
+        <ul>
+          <li *ngFor="let ras of rasadnici">Rasadniku '{{ras.naziv}}' je potrebno odrzavanje!</li>
+        </ul>
+      </td>
+    </tr>
+  </table>
+</div>

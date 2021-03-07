@@ -1,0 +1,9 @@
+.wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 10%;
+  padding-bottom: 1%;
+  background: #eee8e8;
+}

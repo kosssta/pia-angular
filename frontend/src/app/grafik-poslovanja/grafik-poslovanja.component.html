@@ -1,0 +1,13 @@
+<app-header [nazad]="3"></app-header>
+
+<div class="main" style="width: 80%;">
+  <div style="display: block;">
+    <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+    </canvas>
+  </div>
+</div>

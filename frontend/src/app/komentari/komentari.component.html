@@ -1,0 +1,75 @@
+<div *ngIf="!ucitanoDodavanjeKomentara || isPoljoprivrednik == undefined" class="spinner-border text-secondary" role="status"></div>
+
+<div *ngIf="ucitanoDodavanjeKomentara && isPoljoprivrednik">
+
+  <div *ngIf="!mozeDodatiKomentar" style="margin-left: 3%;">{{poruka}}</div>
+
+  <div *ngIf="mozeDodatiKomentar" style="margin-left: 3%;">
+    <ngb-alert *ngIf="porukaDodavanjeKomentara != ''" type="danger" (click)="zatvoriAlert()"><span style="color: blue;">{{porukaDodavanjeKomentara}}</span></ngb-alert>
+
+    <h2>Dodaj komentar</h2>
+
+    <form>
+      <table>
+        <tr>
+          <td>Ocena:</td>
+          <td>
+            <ngb-rating name="ocena" [(rate)]="ocena" [starTemplate]="t" [readonly]="false" [max]="5"
+              [(ngModel)]="ocena"></ngb-rating>
+          </td>
+        </tr>
+        <tr>
+          <td>Komentar:</td>
+          <td>
+            <textarea name="komentar" [(ngModel)]="komentar" placeholder="Unesite komentar ovde..."></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <button class="btn btn-secondary" (click)="dodajKomentar()">Dodaj komentar</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+
+  <div *ngIf="daoKomentar" style="margin-left: 3%;">
+    <h2>Vasa ocena i komentar:</h2>
+    <div>
+      <ngb-rating [(rate)]="ocena" [starTemplate]="t" [readonly]="true" [max]="5" [(ngModel)]="ocena"></ngb-rating>
+      <br /> <br />
+      {{komentar}}
+      <hr />
+    </div>
+  </div>
+</div>
+
+<hr />
+
+<div *ngIf="!ucitano" class="spinner-border text-secondary" role="status"></div>
+<div *ngIf="ucitano">
+  <h2 style="margin-left: 3%;">Komentari</h2>
+
+  <div *ngIf="!komentari || komentari.length == 0" style="margin-left: 3%;"><span style="color: blue;">Trenutno nema komentara</span>.</div>
+
+  <div *ngIf="komentari && komentari.length > 0" style="margin-left: 3%;">
+    <div *ngFor="let komentar of komentari">
+      <strong style="font-size: large;"><span style="color: blue;">{{komentar.username}}</span></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+      <ngb-rating [(rate)]="komentar.ocena" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+
+      <br /><br />
+      <span style="color: blue;">{{komentar.komentar}}</span>
+      <hr />
+    </div>
+  </div>
+</div>
+
+<ng-template #t let-fill="fill">
+  <span class="star" [class.full]="fill === 100">
+    <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
+  </span>
+</ng-template>
+
+<app-odrzavanje></app-odrzavanje>
+
+<app-footer></app-footer>

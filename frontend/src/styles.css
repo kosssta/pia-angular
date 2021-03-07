@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 1%; font-family: -apple-system, Roboto, "Helvetica Neue", sans-serif; background: #fafdfd; }
+h1, h2, h3 { margin-top: 2%; color: cornflowerblue; }
+
+table tr td {
+  text-align: center;
+}
+
+table tr th {
+  text-align: center;
+  color: cornflowerblue;
+}
+
+table tr td {
+  color: blue;
+}
+
+.main {
+  margin-top: 2%;
+  height: 88%;
+  width: 100%;
+  text-align: center;
+}

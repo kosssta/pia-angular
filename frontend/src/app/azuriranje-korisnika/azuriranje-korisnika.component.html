@@ -1,0 +1,151 @@
+<div class="main">
+  <h2>Azuriranje korisnika</h2>
+  <ngb-alert type="danger" (click)="zatvoriAlert()" *ngIf="message != ''" style="margin-top: 1%;">{{message}}</ngb-alert>
+
+  <form style="display: inline-block;">
+    <table>
+      <tr>
+        <td>Tip:</td>
+        <td>
+          <select name="tip" [(ngModel)]="tip" class="form-control">
+            <option>Poljoprivrednik</option>
+            <option>Preduzece</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span *ngIf="tip == 'Preduzece'">Skracen naziv:</span>
+          <span *ngIf="tip != 'Preduzece'">Korisnicko ime:</span>
+        </td>
+        <td>
+          <input type="text" name="username" [(ngModel)]="username" class="form-control" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button class="btn btn-primary" (click)="pretrazi()">
+            <span *ngIf="!pressedButton1">Pronadji korisnika</span>
+            <span *ngIf="pressedButton1" class="spinner-border spinner-border-sm" role="status"
+              aria-hidden="true"></span>
+          </button>
+        </td>
+      </tr>
+    </table>
+  </form>
+  <hr />
+
+  <form *ngIf="poljoprivrednik" style="display: inline-block;">
+    <table>
+      <tr>
+        <td>Ime:</td>
+        <td>
+          <input type="text" name="ime" [(ngModel)]="poljoprivrednik.ime" class="form-control" />
+        </td>
+      </tr>
+      <tr>
+        <td>Prezime:</td>
+        <td>
+          <input type="text" name="prezime" [(ngModel)]="poljoprivrednik.prezime" class="form-control" />
+        </td>
+      </tr>
+      <tr>
+        <td>Korisnicko ime:</td>
+        <td>
+          <input type="text" name="username" [(ngModel)]="poljoprivrednik.username" class="form-control" />
+        </td>
+      </tr>
+      <tr>
+        <td>Lozinka:</td>
+        <td>
+          <input type="password" name="password" [(ngModel)]="poljoprivrednik.password" class="form-control" />
+        </td>
+      </tr>
+      <tr>
+        <td>Datum rodjenja:</td>
+        <td>
+          <input type="date" name="datumRodjenja" [(ngModel)]="poljoprivrednik.datumRodjenja" class="form-control"
+            ngbDatePicker />
+        </td>
+      </tr>
+      <tr>
+        <td>Mesto rodjenja:</td>
+        <td>
+          <input type="text" name="mestoRodjenja" [(ngModel)]="poljoprivrednik.mestoRodjenja" class="form-control" />
+        </td>
+      </tr>
+      <tr>
+        <td>Kontakt telefon:</td>
+        <td>
+          <input type="text" name="telefon" [(ngModel)]="poljoprivrednik.telefon" class="form-control" />
+        </td>
+      </tr>
+      <tr>
+        <td>Email:</td>
+        <td>
+          <input type="text" name="email" [(ngModel)]="poljoprivrednik.email" class="form-control" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button class="btn btn-primary" (click)="azurirajPoljoprivrednika()">
+            <span *ngIf="!pressedButton2">Azuriraj</span>
+            <span *ngIf="pressedButton2" class="spinner-border spinner-border-sm" role="status"
+              aria-hidden="true"></span>
+          </button>
+        </td>
+      </tr>
+    </table>
+  </form>
+
+  <form *ngIf="preduzece" style="display: inline-block;">
+    <table>
+      <tr>
+        <td>Pun naziv:</td>
+        <td>
+          <input type="text" name="punNaziv" [(ngModel)]="preduzece.punNaziv" class="form-control" />
+        </td>
+      </tr>
+      <tr>
+        <td>Skraceni naziv:</td>
+        <td>
+          <input type="text" name="skraceniNaziv" [(ngModel)]="preduzece.username" class="form-control" />
+        </td>
+      </tr>
+      <tr>
+        <td>Lozinka:</td>
+        <td>
+          <input type="password" name="passwordPreduzece" [(ngModel)]="preduzece.password" class="form-control" />
+        </td>
+      </tr>
+      <tr>
+        <td>Datum osnivanja:</td>
+        <td>
+          <input type="date" name="datumOsnivanja" [(ngModel)]="preduzece.datumOsnivanja" class="form-control"
+            ngbDatePicker />
+        </td>
+      </tr>
+      <tr>
+        <td>Mesto:</td>
+        <td>
+          <input type="text" name="mesto" [(ngModel)]="preduzece.mesto" class="form-control" />
+        </td>
+      </tr>
+      <tr>
+        <td>Email:</td>
+        <td>
+          <input type="email" name="email" [(ngModel)]="preduzece.email" class="form-control" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button class="btn btn-primary" (click)="azurirajPreduzece()">
+            <span *ngIf="!pressedButton2">Azuriraj</span>
+            <span *ngIf="pressedButton2" class="spinner-border spinner-border-sm" role="status"
+              aria-hidden="true"></span>
+          </button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>

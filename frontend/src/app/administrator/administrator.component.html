@@ -1,0 +1,73 @@
+<app-header></app-header>
+
+<div class="d-flex" style="margin-top: 2%">
+  <ul ngbNav #nav="ngbNav" class="nav-pills" orientation="horizontal">
+    <li ngbNavItem="Zahtevi za potvrdu">
+      <a ngbNavLink (click)="promeniStranu(0)">Zahtevi za potvrdu</a>
+    </li>
+    <li ngbNavItem="Dodavanje korisnika">
+      <a ngbNavLink (click)="promeniStranu(1)">Dodavanje korisnika</a>
+    </li>
+    <li ngbNavItem="Azuriranje korisnika">
+      <a ngbNavLink (click)="promeniStranu(2)">Azuriranje korisnika</a>
+    </li>
+    <li ngbNavItem="Brisanje korisnika">
+      <a ngbNavLink (click)="promeniStranu(3)">Brisanje korisnika</a>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="strana == 0">
+  <div *ngIf="!ucitano" class="spinner-border text-secondary" role="status" style="margin-top: 2%;"></div>
+
+  <div *ngIf="ucitano && (!zahtevi || zahtevi.length <= 0)" style="margin-top: 2%;">
+    <span style="color: blue;">Nema novih zahteva</span>
+  </div>
+
+  <div *ngIf="ucitano && zahtevi && zahtevi.length > 0" style="margin-top: 2%;">
+    <h2 style="text-align: center;">Zahtevi za odobrenje</h2>
+
+    <ngb-alert type="danger" (click)="zatvoriPoruku()" *ngIf="message != ''" style="margin-top: 1%;">{{message}}</ngb-alert>
+
+    <table class="table table-striped">
+      <tr>
+        <th>Korisnicko ime / Skraceni naziv</th>
+        <th>Tip</th>
+        <th>Status</th>
+        <th>Akcija</th>
+      </tr>
+      <tr *ngFor="let zahtev of zahtevi; let index = index;" placement="bottom" trigger="click" autoClose="outside"
+        [ngbPopover]="popoverBody" [popoverTitle]="popoverTitle">
+        <td (click)="prikaziDetalje(zahtev)">{{zahtev.username}}</td>
+        <td (click)="prikaziDetalje(zahtev)">{{zahtev.tip}}</td>
+        <td (click)="prikaziDetalje(zahtev)"
+          [style]="zahtev.status == 1 ? 'color: green;' : zahtev.status == 2 ? 'color: red;' : 'color: black;'">
+          {{prikaziStatus(zahtev.status)}}</td>
+        <td>
+          <button class="btn btn-secondary" *ngIf="zahtev.status == 0" (click)="odobri(index)">Odobri</button>&nbsp;
+          <button class="btn btn-secondary" *ngIf="zahtev.status == 0" (click)="odbij(index)">Odbij</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <ng-template #popoverBody>
+    <app-korisnik-detalji [zahtev]="zahtevDetalji"></app-korisnik-detalji>
+  </ng-template>
+
+  <ng-template #popoverTitle>
+    {{zahtevDetalji.username}}
+  </ng-template>
+</div>
+
+<div *ngIf="strana == 1">
+  <app-dodavanje-korisnika></app-dodavanje-korisnika>
+</div>
+
+<div *ngIf="strana == 2">
+  <app-azuriranje-korisnika></app-azuriranje-korisnika>
+</div>
+
+<div *ngIf="strana == 3">
+  <app-brisanje-korisnika></app-brisanje-korisnika>
+</div>

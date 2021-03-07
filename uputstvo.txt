@@ -1,0 +1,8 @@
+frontend:
+ng add @angular/material
+ng add @ng-bootstrap/ng-bootstrap
+npm install chart.js --save
+npm install ng2-charts@2.4.0
+
+backend:
+npm install express nodemon mysql cors body-parser request nodemailer
