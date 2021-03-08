@@ -4,7 +4,7 @@ const ruter = express.Router()
 
 ruter.route('').post((req, res) => {
     const token = req.body.captcha
-    const secretKey = '6Le--agZAAAAAKbthkifcqappdUW9UIR_3whZikk'
+    const secretKey = ''
 
     const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${token}`
 
