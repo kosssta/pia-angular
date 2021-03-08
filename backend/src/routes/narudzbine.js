@@ -174,7 +174,7 @@ function proveriNarudzbineNaCekanju(req, origin, key) {
 }
 
 function isporuciNarudzbinu(req, res, conn, origin, destination) {
-    const key = 'AIzaSyAKA2zt5deYnG2ciga0d9mKigCkbTtsNs0'
+    const key = ''
 
     origin = origin.split(' ').filter(a => a.length > 0).join('+')
     const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${origin}&destinations=${destination}&key=${key}`
